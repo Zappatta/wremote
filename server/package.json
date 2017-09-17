@@ -1,0 +1,44 @@
+{
+  "name": "wremote_server",
+  "version": "0.0.1",
+  "description": "Web interface for Zappatta's Gree A/C RC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "nodemon index.js --exec babel-node index.js --presets env",
+    "start-debug": "nodemon %NODE_DEBUG_OPTION% index.js --exec babel-node index.js --presets env"
+  },
+  "keywords": [
+    "gree",
+    "tadiran",
+    "arduino",
+    "esp8622"
+  ],
+  "author": "Yoske Shamam",
+  "license": "MIT",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "body-parser": "^1.18.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.4",
+    "google-auth-library": "^0.11.0",
+    "moment": "^2.18.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "style-loader": "^0.18.2",
+    "vue": "^2.4.2",
+    "vue-html-loader": "^1.2.4",
+    "vue-loader": "^13.0.4",
+    "vue-template-compiler": "^2.4.2",
+    "webpack": "^3.5.6",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.19.1"
+  }
+}
