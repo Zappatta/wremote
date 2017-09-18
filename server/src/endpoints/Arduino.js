@@ -15,7 +15,7 @@ app.get('/GetPendingAction/', function(req, res) {
     if(state.isActionPending){
         //power, temp, mdoe, fan
         state.isActionPending = false;
-        res.status(200).send(`${state.power},${state.temp},${state.mode},${state.fan}`);
+        res.status(200).send(`${state.power},${state.desiredTemp},${state.mode},${state.fan}`);
 
     }
     else {
