@@ -13,7 +13,7 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 query: {
-                    presets: ['es2015', 'stage-2','es2017']
+                    presets: ['env']
                 }
             },
             {
@@ -24,6 +24,13 @@ module.exports = {
     },
     stats: {
         colors: true
+    },
+    resolve: {
+        extensions: ['.js', '.vue'],
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js',
+            'public': path.resolve(__dirname, './public')
+        }
     },
 
     devtool: 'source-map'

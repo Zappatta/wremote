@@ -1,6 +1,9 @@
 import Vue from 'vue';
+import Vuetify from 'vuetify';
+Vue.use(Vuetify);
+
 import MainVue from './components/Main.vue';
-console.log("djsahdsahdsa");
+
 
 
 new Vue({

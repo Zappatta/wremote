@@ -1,4 +1,5 @@
 <template>
+    <v-app>
     <div class="'main">
         <div class="topDisplay">
             <div class="actualTemp">
@@ -17,6 +18,7 @@
         </div>
         <div class="control">
             <div class="power">
+                <v-switch v-model="power"></v-switch>
                 <label for="chkPower">Power</label><input type="checkbox" id="chkPower" v-model="power">
             </div>
             <label for="selFan">Fan</label>
@@ -37,12 +39,18 @@
         </div>
         <button @click="updateServerWithState()">send</button>
     </div>
+    </v-app>
 </template>
 <script>
     import Vue from 'vue';
     import moment from 'moment';
+    import VApp from "../../node_modules/vuetify/src/components/VApp/VApp.vue";
+    import VSwitch from "../../node_modules/vuetify/src/components/VSwitch/VSwitch.vue";
 
     export default {
+        components: {
+            VSwitch,
+            VApp},
         data: function(){
             return {
                 actualTemp : 0,
