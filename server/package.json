@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf build && mkdir build",
-    "build": "npm run clean && babel src -d build",
+    "build": "npm run clean && webpack && babel src -d build",
     "build-nc": "babel src -d build",
     "start": "NODE_ENV=production node build/main.js",
     "start-dev": "nodemon src/main.js --exec babel-node src/main.js --presets env",
