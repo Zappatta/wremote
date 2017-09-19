@@ -1,54 +1,81 @@
 <template>
     <v-app>
-    <div class="'main">
-        <div class="topDisplay">
-            <div class="actualTemp">
-                {{actualTemp}}
-                <br>
+    <div class="main">
+
+            <div class="actual-temp">
+                right now:
+                <div class="temp-text">
+                    {{actualTemp}}
+                </div>
+
                 <span class="last-update-time" v-if="lastUpdateDiff > (30 * 1000)">
                     updated {{lastUpdateDiffInWords}}
                 </span>
             </div>
             <hr>
-            <div class="desiredTemp">
-                {{desiredTemp}}
-                <button @click="desiredTemp++">Up</button>
-                <button @click="desiredTemp--">Down</button>
-            </div>
-        </div>
+
+
         <div class="control">
-            <div class="power">
-                <v-switch v-model="power"></v-switch>
-                <label for="chkPower">Power</label><input type="checkbox" id="chkPower" v-model="power">
+            set:
+            <div class="desired-temp">
+                <div class="temp-text">{{desiredTemp}}</div>
+                <v-btn class="temp-change-button" icon @click="desiredTemp++"><v-icon large>fa-arrow-up</v-icon></v-btn>
+                <v-btn class="temp-change-button" icon @click="desiredTemp--"><v-icon large>fa-arrow-down</v-icon></v-btn>
+
             </div>
-            <label for="selFan">Fan</label>
-            <select id="selFan" v-model="fan">
-                <option value="0">Auto</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select><br>
-            <label for="selMode">Mode</label>
-            <select id="selMode" v-model="mode">
-                <option value="0">Auto</option>
-                <option value="1">Cold</option>
-                <option value="2">Dry</option>
-                <option value="3">Fan</option>
-                <option value="4">Heat</option>
-            </select>
+            <v-btn @click="power = !power" class="power-button" :class="{'on' : power}">
+                <v-icon >fa-power-off</v-icon>
+            </v-btn>
+
+            <v-select
+                    v-model="fan"
+                    :items="[
+                        {text: 'Auto', value:'0'},
+                        {text: '1'},
+                        {text: '2'},
+                        {text: '3'}
+                        ]"
+                    label="fan"
+            ></v-select>
+            <v-select
+                    v-model="mode"
+                    :items="[
+                        {text: 'Auto', value:'0'},
+                        {text: 'Cold', value:'1'},
+                        {text: 'Dry', value:'2'},
+                        {text: 'Fan', value:'3'},
+                        {text: 'Heat', value:'4'},
+
+                        ]"
+                    label="Mode"
+            ></v-select>
+
         </div>
-        <button @click="updateServerWithState()">send</button>
+        <div class="send-container">
+            <v-btn icon large class="send-button red" @click="updateServerWithState()">
+                <v-icon>fa-wifi</v-icon>
+            </v-btn>
+        </div>
+
     </div>
     </v-app>
 </template>
 <script>
     import Vue from 'vue';
     import moment from 'moment';
-    import VApp from "../../node_modules/vuetify/src/components/VApp/VApp.vue";
-    import VSwitch from "../../node_modules/vuetify/src/components/VSwitch/VSwitch.vue";
+    import VApp from "../../../node_modules/vuetify/src/components/VApp/VApp.vue";
+    import VSwitch from "../../../node_modules/vuetify/src/components/VSwitch/VSwitch.vue";
+    import VSelect from "../../../node_modules/vuetify/src/components/VSelect/VSelect.vue";
+    import VIcon from "../../../node_modules/vuetify/src/components/VIcon/VIcon.vue";
+    import VBtn from "../../../node_modules/vuetify/src/components/VBtn/VBtn.vue";
+
+    import './styles.scss'
 
     export default {
         components: {
+            VBtn,
+            VIcon,
+            VSelect,
             VSwitch,
             VApp},
         data: function(){
@@ -139,4 +166,7 @@
      display: flex;
      flex-direction: row;
  }
+
+
+
 </style>

@@ -8,19 +8,25 @@ module.exports = {
         filename: 'main.js' //webpack-dev-middleware seems to only put this name
     },
     module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['env']
-                }
+        rules: [{
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader']
             },
             {
-                test: /\.vue$/,
-                loader: 'vue-loader',
-            },
-        ],
+            test: /\.scss$/,
+            use: ["style-loader", "css-loader", "sass-loader"]
+        },
+        {
+            test: /\.js$/,
+            loader: 'babel-loader',
+            query: {
+                presets: ['env']
+            }
+        },
+        {
+            test: /\.vue$/,
+            loader: 'vue-loader',
+        }]
     },
     stats: {
         colors: true
