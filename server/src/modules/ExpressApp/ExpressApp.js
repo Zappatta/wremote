@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import cookieParser from 'cookie-parser';
 import * as CONFIG from '../../config';
-import authMiddleware from '../../middlewares/auth';
+import authMiddleware from '../../middlewares/Auth';
 import * as gAuth from '../../modules/GoogleAuth';
 import path from 'path';
 
@@ -20,6 +20,8 @@ app.use('/rest/', authMiddleware);
 let bodyParser = require('body-parser');
 app.use( bodyParser.json() );
 // app.use(express.json());
+
+
 
 if (ENV === 'dev') {
     app.use(webpackMiddleware(webpack(require('../../../webpack.config')), {
