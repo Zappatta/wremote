@@ -3,9 +3,9 @@
     <div class="main">
 
             <div class="actual-temp">
-                right now:
+
                 <div class="temp-text">
-                    {{actualTemp}}
+                    <i class="flaticon-house-outline"></i><span>{{actualTemp}}</span>
                 </div>
 
                 <span class="last-update-time" v-if="lastUpdateDiff > (30 * 1000)">
@@ -16,39 +16,21 @@
 
 
         <div class="control">
-            set:
+
             <div class="desired-temp">
-                <div class="temp-text">{{desiredTemp}}</div>
+                <div class="temp-text"><i class="flaticon-thermometer"></i> <span>{{desiredTemp}}</span></div>
                 <v-btn class="temp-change-button" icon @click="desiredTemp++"><v-icon large>fa-arrow-up</v-icon></v-btn>
                 <v-btn class="temp-change-button" icon @click="desiredTemp--"><v-icon large>fa-arrow-down</v-icon></v-btn>
 
             </div>
+            <hr>
             <v-btn @click="power = !power" class="power-button" :class="{'on' : power}">
                 <v-icon >fa-power-off</v-icon>
             </v-btn>
 
-            <v-select
-                    v-model="fan"
-                    :items="[
-                        {text: 'Auto', value:'0'},
-                        {text: '1'},
-                        {text: '2'},
-                        {text: '3'}
-                        ]"
-                    label="fan"
-            ></v-select>
-            <v-select
-                    v-model="mode"
-                    :items="[
-                        {text: 'Auto', value:'0'},
-                        {text: 'Cold', value:'1'},
-                        {text: 'Dry', value:'2'},
-                        {text: 'Fan', value:'3'},
-                        {text: 'Heat', value:'4'},
+            <fan-control v-model="fan" @change="(newSpeed)=>{this.fan = newSpeed}"></fan-control>
 
-                        ]"
-                    label="Mode"
-            ></v-select>
+            <mode-control v-model="mode" @change="(newMode)=>{this.mode = newMode}"></mode-control>
 
         </div>
         <div class="send-container">
@@ -68,6 +50,8 @@
     import VSelect from "../../../node_modules/vuetify/src/components/VSelect/VSelect.vue";
     import VIcon from "../../../node_modules/vuetify/src/components/VIcon/VIcon.vue";
     import VBtn from "../../../node_modules/vuetify/src/components/VBtn/VBtn.vue";
+    import FanControl from '../FanControl/';
+    import ModeControl from '../ModeControl/'
 
     import './styles.scss'
 
@@ -77,7 +61,10 @@
             VIcon,
             VSelect,
             VSwitch,
-            VApp},
+            VApp,
+            FanControl,
+            ModeControl
+        },
         data: function(){
             return {
                 actualTemp : 0,
@@ -165,6 +152,12 @@
  #modes {
      display: flex;
      flex-direction: row;
+ }
+
+ /*flaticon adds 20px margin-left for some reason. Override it*/
+ [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+ [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+     margin-left: 0px;
  }
 
 
