@@ -1,5 +1,17 @@
-##Info
+# Web interface server for arduino A/C remote
+
+### Info
 This is the web-interface. Based on expressjs on server-side, and Vue on client side. 
+It has very basic security. 
+
+Arduino requests are only allowed from certain IP (or DNS) (see [ArduinoAuth.js](src/middlewares/ArduinoAuth.js)).
+
+Actually controlling the A/C can only be done for authroized google email addresses as specified in config.js 
+
+### requirements:
+
+To prevent from strangers controling your A/C, we use google sign in to verify users. So you will need an API key from google at (https://developers.google.com/identity/sign-in/web/sign-in).
+
 
 ### Getting started
 
@@ -9,12 +21,21 @@ This is the web-interface. Based on expressjs on server-side, and Vue on client 
 * npm install
 * npm run start-dev
 
-For prod just transpile code babel/webpack with webpack and run with node instead of babel-node
+##### For prod 
+* set environment var NODE_ENV=production
+* npm run build
+* node public/main.js
+
+Instead of setting NODE_ENV in environment var, you can add 
+``
+    process.env.NODE_ENV = 'production';
+``
+to your config.js
 
 
 ### Credits and acknowledgments:
 
-####icons:
+#### icons:
 * Snowflake by [Icon Works](https://www.flaticon.com/authors/icon-works) from www.flaticon.com 
 * Drought by [Freepik](https://www.flaticon.com/authors/freepik)from www.flaticon.com
 * Fan by [Freepik](https://www.flaticon.com/authors/freepik)from www.flaticon.com
