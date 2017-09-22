@@ -4,6 +4,8 @@
  * So this will resolve the DNS to an IP address, and only allow requests from that specific I.P
  * This somewhat offloads security to your dynamic DNS provier. But security is not so important here (no secret data),
  * so simple wins IMHO.
+ *
+ * IF YOU WANT TO TURN THIS OFF JUST REMOVE AUTHORIZED_ARDIUNO_DNS_NAME FROM CONFIG.JS
  */
 
 import * as CONFIG from '../config';
