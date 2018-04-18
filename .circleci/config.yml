@@ -32,7 +32,7 @@ jobs:
               root: ~/repo/server
               paths:
                 - build
-                package.json
+                - package.json
 
   build_docker:
       docker:
