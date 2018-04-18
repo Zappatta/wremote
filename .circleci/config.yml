@@ -29,7 +29,7 @@ jobs:
       - run: cd server && npm run build
 
       - persist_to_workspace:
-              root: ~/repo
+              root: ~/repo/server
               paths:
                 - build
 
