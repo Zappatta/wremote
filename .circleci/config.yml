@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  build_app:
     docker:
         - image: circleci/node:8.11-stretch
       
@@ -28,3 +28,37 @@ jobs:
         
       - run: cd server && npm run build
 
+      - persist_to_workspace:
+              root: ~/repo
+              paths:
+                - build
+
+  build_docker:
+      docker:
+       - image: circleci/node:8.11-stretch
+      steps:
+        - setup_remote_docker
+
+        - attach_workspace:
+            at: ~/repo
+        - run:
+            name: docker build
+            command: |
+              export PACKAGE_VERSION=$(sed -nE 's/^\s*"version": "(.*?)",$/\1/p' package.json)
+              docker login -u $DOCKER_REPO_USR -p $DOCKER_REPO_PWD
+              docker build -t zappatta/wremote:latest ./
+              docker tag zappatta/wremote:latest zappatta/wremote:$PACKAGE_VERSION
+              docker push zappatta/wremote:latest
+              docker push zappatta/wremote:$PACKAGE_VERSION
+
+
+workflows:
+  version: 2
+  build-and-deploy:
+
+    jobs:
+      - build_app
+
+      - build_docker
+          requires:
+            - build_app
