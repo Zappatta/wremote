@@ -21,7 +21,7 @@ jobs:
           - v1-dependencies-{{ checksum "server/package.json" }}
           # fallback to using the latest cache if no exact match is found
 
-      - run: cd server && npm install --production
+      - run: cd server && npm install
 
       - save_cache:
           paths:
