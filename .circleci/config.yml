@@ -14,8 +14,6 @@ jobs:
     steps:
       - checkout
 
-      - run: npm installl -g webpack
-
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "server/package.json" }}
