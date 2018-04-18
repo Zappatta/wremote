@@ -14,8 +14,6 @@ jobs:
     steps:
       - checkout
       
-      - run: sudo npm install -g webpack webpack-cli 
-
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "server/package.json" }}
