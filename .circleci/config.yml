@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - checkout
+      
+      - run: npm install -g webpack 
 
       - restore_cache:
           keys:
