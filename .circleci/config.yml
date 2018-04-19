@@ -58,7 +58,10 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build_app
+      - build_app:
+          filters:
+            tags:
+              only: /\d*\.\d*\.\d*/
       - build_docker:
           requires:
             - build_app
