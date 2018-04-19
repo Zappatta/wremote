@@ -1,4 +1,4 @@
-FROM 'zencitycontainers.azurecr.io/zc-puppeteer-node8-linux'
+FROM 'node:8.11.1-alpine'
 
 
 COPY package*.json ./
