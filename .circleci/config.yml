@@ -59,8 +59,8 @@ workflows:
   build-and-deploy:
     jobs:
       - build_app
+        tags:
+          only: /\d*\.\d*\.\d*/
       - build_docker:
           requires:
             - build_app
-          tags:
-            only: /\d*\.\d*\.\d*/
