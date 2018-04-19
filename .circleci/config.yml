@@ -33,6 +33,7 @@ jobs:
               paths:
                 - build
                 - package.json
+                - Dockerfile
 
   build_docker:
       docker:
@@ -47,7 +48,7 @@ jobs:
             command: |
               export PACKAGE_VERSION=$(sed -nE 's/^\s*"version": "(.*?)",$/\1/p' ~/repo/package.json)
               docker login -u $DOCKER_REPO_USR -p $DOCKER_REPO_PWD
-              docker build -t zappatta/wremote:latest ~/repo/server/
+              docker build -t zappatta/wremote:latest ~/repo/
               docker tag zappatta/wremote:latest zappatta/wremote:$PACKAGE_VERSION
               docker push zappatta/wremote:latest
               docker push zappatta/wremote:$PACKAGE_VERSION
