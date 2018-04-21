@@ -1,7 +1,6 @@
 import express from 'express';
-import webpack from 'webpack';
-import webpackMiddleware from 'webpack-dev-middleware';
 import cookieParser from 'cookie-parser';
+
 import CONFIG from '../../../config';
 import authMiddleware from '../../middlewares/Auth';
 import * as gAuth from '../../modules/GoogleAuth';
@@ -24,6 +23,8 @@ app.use( bodyParser.json() );
 
 
 if (ENV === 'dev') {
+  let webpack = require("webpack")
+  let webpackMiddleware = require('webpack-dev-middleware');
     app.use(webpackMiddleware(webpack(require('../../../webpack.config')), {
         publicPath: "/assets/",
     }));

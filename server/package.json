@@ -27,13 +27,13 @@
     "express": "^4.15.4",
     "google-auth-library": "^0.11.0",
     "moment": "^2.18.1",
-    "nodemon": "^1.17.3"
+    "nodemon": "^1.17.3",
+    "babel-polyfill": "^6.26.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-add-filehash": "^6.9.4",
-    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
