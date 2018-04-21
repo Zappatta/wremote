@@ -1,4 +1,5 @@
-import fs from 'fs'
+const fs = require('fs');
+
 let conf = {};
 if(fs.existsSync('./config/config.js')){
   conf = require('./config.js')
