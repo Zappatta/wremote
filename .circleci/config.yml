@@ -34,6 +34,7 @@ jobs:
                 - build
                 - package.json
                 - Dockerfile
+                - public
 
   build_docker:
       docker:
