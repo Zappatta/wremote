@@ -12,6 +12,9 @@ else {
 
 module.exports = new Proxy({},{
   get(target, prop){
+    if(prop === '__esModule'){
+      return;//workaround
+    }
     let retVal = process.env[prop] || conf[prop]
 
     if(!retVal) {
