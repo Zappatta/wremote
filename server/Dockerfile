@@ -1,8 +1,10 @@
 FROM 'node:8.11.1-alpine'
 
+RUN mkdir /var/app/
+WORKDIR /var/app/
 
-COPY package*.json ./
-COPY build ./
+COPY package*.json /var/app/
+COPY build /var/app/
 
 RUN npm install --production
 
