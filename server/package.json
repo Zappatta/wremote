@@ -1,6 +1,6 @@
 {
   "name": "wremote_server",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Web interface for Zappatta's Gree A/C RC",
   "main": "index.js",
   "scripts": {
