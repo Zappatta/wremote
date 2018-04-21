@@ -10,7 +10,7 @@ else {
 
 
 
-export default new Proxy({},{
+module.exports = new Proxy({},{
   get(target, prop){
     let retVal = process.env[prop] || conf[prop]
 
