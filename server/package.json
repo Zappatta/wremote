@@ -9,8 +9,8 @@
     "build": "npm run clean && ./node_modules/webpack/bin/webpack.js && babel src -d build",
     "build-nc": "babel src -d build",
     "start": "NODE_ENV=production node build/main.js",
-    "start-dev": "nodemon src/main.js --exec babel-node src/main.js --presets env",
-    "start-debug": "nodemon %NODE_DEBUG_OPTION% src/main.js --exec babel-node index.js --presets env"
+    "start-dev": "./node_modules/nodemon/bin/nodemon.js src/main.js --exec babel-node src/main.js --presets env",
+    "start-debug": "./node_modules/nodemon/bin/nodemon.js %NODE_DEBUG_OPTION% src/main.js --exec babel-node index.js --presets env"
   },
   "keywords": [
     "gree",
@@ -26,7 +26,8 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.15.4",
     "google-auth-library": "^0.11.0",
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "nodemon": "^1.17.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

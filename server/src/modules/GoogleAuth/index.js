@@ -1,4 +1,4 @@
-import * as CONFIG from '../../config';
+import CONFIG from '../../../config/';
 const CLIENT_ID = CONFIG.GOOGLE_CLIENT_ID;
 import GoogleAuth from 'google-auth-library';
 

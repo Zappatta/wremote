@@ -8,7 +8,7 @@
  * IF YOU WANT TO TURN THIS OFF JUST REMOVE AUTHORIZED_ARDIUNO_DNS_NAME FROM CONFIG.JS
  */
 
-import * as CONFIG from '../config';
+import * as CONFIG from '../../config';
 import dns from 'dns';
 
 let authorizedAddress;

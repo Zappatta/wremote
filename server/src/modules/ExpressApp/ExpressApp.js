@@ -2,7 +2,7 @@ import express from 'express';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import cookieParser from 'cookie-parser';
-import * as CONFIG from '../../config';
+import CONFIG from '../../../config';
 import authMiddleware from '../../middlewares/Auth';
 import * as gAuth from '../../modules/GoogleAuth';
 import path from 'path';
@@ -12,8 +12,8 @@ const ENV = process.env.NODE_ENV || 'dev';
 let app = express();
 
 app.set('port', CONFIG.PORT);
+console.log("MY PORT IS ", CONFIG.PORT);
 app.listen(app.get('port'));
-
 app.use(cookieParser());
 app.use('/rest/', authMiddleware);
 

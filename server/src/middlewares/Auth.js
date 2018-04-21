@@ -4,7 +4,7 @@
 const EXCLUDED_URLS= [/checkToken/];//regexps only please
 
 import * as gAuth from '../modules/GoogleAuth/';
-import * as CONFIG from '../config';
+import * as CONFIG from '../../config';
 
 export default async function (req,res,next){
     let isExcluded = false;

@@ -3,7 +3,6 @@ import express from 'express';
 import "babel-core/register";
 import "babel-polyfill";
 
-import * as CONFIG from './config';
 
 
 
