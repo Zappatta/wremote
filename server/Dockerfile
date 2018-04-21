@@ -4,7 +4,8 @@ RUN mkdir /var/app/
 WORKDIR /var/app/
 
 COPY package*.json /var/app/
-COPY build /var/app/
+RUN mkdir /var/app/build/
+COPY build /var/app/build/
 
 RUN npm install --production
 
