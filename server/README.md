@@ -2,11 +2,20 @@
 
 ### Info
 This is the web-interface. Based on expressjs on server-side, and Vue on client side. 
-It has very basic security. 
 
-Arduino requests are only allowed from certain IP (or DNS) (see [ArduinoAuth.js](src/middlewares/ArduinoAuth.js)).
+It has very basic security. controlling the A/C can only be done for authroized google email addresses as specified in environment variable. More on that later.
 
-Actually controlling the A/C can only be done for authroized google email addresses as specified in config.js 
+# Configuration:
+
+The server can be configured by providing the following environment variables:
+
+* PORT - Port to use 
+* AUTHORIZED_GOOGLE_EMAILS - ['one@gmail', 'two@gmail.com']  
+* GOOGLE_CLIENT_ID -  Your generated google client id (see requiremments)
+* MQTT_URL -  URL for your MQTT server. Including port, user and password if needed
+* MQTT_SUBJECT_PREFIX -  prefox for all MQTT subjects. Makes sure it is the same as configured in your arduino sketch (in config.h)
+
+If you insist on working without env vars, copy config.sample.js to config.js and modify values instead  
 
 ### requirements:
 

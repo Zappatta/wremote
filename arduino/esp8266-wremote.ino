@@ -1,11 +1,14 @@
+#include <PubSubClient.h>
 #include <IRremoteESP8266.h>
 #include <IRsend.h>
 #include <Tadiran.h>
 #include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
 #include <stdio.h>
 
 #include "config.h"
+WiFiClient espClient;
+PubSubClient client(espClient);
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -14,65 +17,108 @@ void setup() {
     pinMode(STATUS_LED, OUTPUT);
     pinMode(IR_LED_PIN, OUTPUT);
       
-    
-    WiFi.begin(ssid, password);
 
-    bool wasLit = false;
+    setupWifi();
+
+    client.setServer(MQTT_SERVER, 14377);
+    client.setCallback(mqttCallback);
  
-    while (WiFi.status() != WL_CONNECTED) {
-      if(!wasLit){
-        digitalWrite(STATUS_LED,HIGH);
-        wasLit = true;
-      }
-      else {
-        digitalWrite(STATUS_LED,LOW);
-        wasLit = false;
-      }
-      
-      delay(500);
-      
-      Serial.print(".");
-    }
-
-    Serial.println("");   
-    Serial.println("WiFi connected");
     
     digitalWrite(STATUS_LED,LOW);
 }
 
+int loopCounter = 0;
 void loop() {
   // put your main code here, to run repeatedly:
+  Serial.print("oOo.");
   digitalWrite(STATUS_LED,HIGH);
-  sendTempratureUpdate();
-  checkForCommand();
-  digitalWrite(STATUS_LED,LOW);
-  delay(5000);
-}
+ 
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
 
-void checkForCommand(){
-  HTTPClient http;
-  http.begin("http://"+ host + "/GetPendingAction"); //HTTP
-  
-  int httpCode = http.GET();  
-  if(httpCode > 0) {
-      // HTTP header has been send and Server response header has been handled
-      
-  
-      // file found at server
-      if(httpCode == HTTP_CODE_OK) {
-          Serial.println(F("Got command from server"));
-          String payload = http.getString();
-          Serial.println(payload);
-          executeCommand(payload);
-      }
-  } else if(httpCode == HTTP_CODE_NOT_FOUND){
-    Serial.println(F("Not pending command from server"));
+  if(loopCounter == 5){
+    loopCounter = 0;
+    sendTempratureUpdate();
   }
   else {
-      Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
+    loopCounter++;
   }
   
-  http.end();
+  digitalWrite(STATUS_LED,LOW);
+  delay(1000);
+}
+
+void setupWifi() {
+
+  delay(10);
+  // We start by connecting to a WiFi network
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+
+  WiFi.begin(ssid, password);
+  
+  bool wasLit = false;
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  if(!wasLit){
+    digitalWrite(STATUS_LED,HIGH);
+    wasLit = true;
+  }
+  else {
+    digitalWrite(STATUS_LED,LOW);
+    wasLit = false;
+  }
+  
+  randomSeed(micros());
+
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+}
+
+void reconnect() {
+  // Loop until we're reconnected
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    // Create a random client ID
+    String clientId = "ESP8266Client-";
+    clientId += String(random(0xffff), HEX);
+    // Attempt to connect
+    if (client.connect(clientId.c_str(), MQTT_USERNAME,MQTT_PASS)) {
+      Serial.println("connected");
+      
+      client.subscribe(strcat(MQTT_SUBJECT,"set"));
+    } else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" try again in 5 seconds");
+      // Wait 5 seconds before retrying
+      delay(5000);
+    }
+  }
+}
+
+void mqttCallback(char* topic, byte* payload, unsigned int length) {
+  Serial.print("Message arrived [");
+  Serial.print(topic);
+  Serial.print("] ");
+  Serial.println();
+  
+  char strPayload[length +1];
+  strPayload[length] = '\0';
+  for(int i=0;i<length;i++){
+    strPayload[i] = payload[i];
+  }
+
+  if(strcmp(topic, strcat(MQTT_SUBJECT,"set")) == 0){
+    executeCommand(String(strPayload));
+  }
 }
 
 void executeCommand(String command){
@@ -96,34 +142,23 @@ void executeCommand(String command){
     tadiran.setState(power);
 
     irsend.sendRaw(tadiran.codes, TADIRAN_BUFFER_SIZE, 38);
+    delay(500);
+    irsend.sendRaw(tadiran.codes, TADIRAN_BUFFER_SIZE, 38);
+    delay(500);
+    irsend.sendRaw(tadiran.codes, TADIRAN_BUFFER_SIZE, 38);
+    //send 3 times to decrease chances of AC not getting msg
 
     Serial.println("Executed command");    
 }
 
 void sendTempratureUpdate(){
   
-  HTTPClient http;
-  int curTemp = getTemp();
-  Serial.printf("Updating temprature %d ...", curTemp);
-  http.begin("http://"+ host + "/UpdateTemp/" + curTemp); //HTTP
-  
-  int httpCode = http.GET();  
-  if(httpCode > 0) {
-      // HTTP header has been send and Server response header has been handled      
-      // file found at server
-      if(httpCode == HTTP_CODE_OK) {
-          String payload = http.getString();
-          Serial.print(F("Success"));
-          Serial.println();
-      }
-      else {
-        Serial.printf("Fail: %d\n", httpCode);
-      }
-  } else {
-      Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
-  }
-  
-  http.end();
+
+    int curTemp = getTemp();
+    char cstr[16];
+    itoa(curTemp, cstr, 10);
+    client.publish(strcat(MQTT_SUBJECT,"ambianceTemp"), cstr);
+
     
 }
 
