@@ -1,5 +1,7 @@
 # Web interface server for arduino A/C remote
 
+[![CircleCI](https://circleci.com/gh/Zappatta/wremote.svg?style=svg)](https://circleci.com/gh/Zappatta/wremote)
+
 ### Info
 This is the web-interface. Based on expressjs on server-side, and Vue on client side. 
 
