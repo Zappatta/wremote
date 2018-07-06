@@ -1,5 +1,7 @@
 # Internet connected A/C remote using Esp8266 (arduino compatible) board
 
+![Imgur](https://i.imgur.com/Dpmky3r.png?1)
+
 This is a personal project I've worked on to allow me to control my home A/C unit via the internet. I could've gone with better, premade solutions such as [sensibo](https://sensibo.com/). But where is the fun in that? 
 
 All the code is published here freely, for everyone who might wish to use it to build similar setups. Good luck :P
