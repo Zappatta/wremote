@@ -5,6 +5,13 @@ This is the web-interface. Based on expressjs on server-side, and Vue on client 
 
 It has very basic security. controlling the A/C can only be done for authroized google email addresses as specified in environment variable. More on that later.
 
+# Docker image
+If you just want the server and don't want to modify the code you can use a prebuilt docker image, and provide it with the env required vars 
+````
+docker pull zappatta/wremote
+````
+
+
 # Configuration:
 
 The server can be configured by providing the following environment variables:
