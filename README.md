@@ -38,17 +38,7 @@ Personally, I'm hosting the web interface on a hosted VM on the internet. But I 
 The GUI is built for mobile devices. But will work on desktop browsers as well.
 
 ## how it works
-the ESP8266 board doesn't really have strong hardware. More importantly, I am not very proficient in C/C++. So I have decided to have the board do as little logic as possible, and move most of it to the web server. 
-
-the board  will run the following logic every 5 seconds:
-* HTTP GET request to <server>/UpdateTemp/<Measured temprature>
-* HTTP GET request to <server>/GetPendingAction. Checks if there is a command it should send to the AC.
-    * If response has status of 200
-        *   Parse response body, assume it has the following CSV string: <power>,<temprature>,<mode>,<fan>. I.E. "1,24,1,3"
-        *   send this to the remote via IR LED.
-    *   If response has status other than 200, do nothing
-    
-When the user sends a command via the web interface, the server will respond with it to the next */GetPendingAction/* request. Subsequent requests will return 404.
+The board will use the MQTT protocol to communicate with the server. the Server is a web GUI to control the broad.
 
 ## License - MIT
 
