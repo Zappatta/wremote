@@ -1,5 +1,4 @@
 .idea
-config.js
 node_modules/
 build/
 public/assets

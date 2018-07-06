@@ -17,7 +17,7 @@ export default async function (req,res,next){
         return next();//url is expluded;
     }
 
-    let userToken = req.cookies[CONFIG.G_ID_TOKEN_COOKIE_NAME];
+    let userToken = req.cookies[CONFIG.G_ID_TOKEN_COOKIE_NAME || 'g_id_token'];
     if(userToken) {
         let isVerified = await gAuth.checkForAuthorization(userToken);
 
