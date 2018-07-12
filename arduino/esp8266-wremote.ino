@@ -20,7 +20,7 @@ void setup() {
 
     setupWifi();
 
-    client.setServer(MQTT_SERVER, 14377);
+    client.setServer(MQTT_SERVER, MQTT_PORT);
     client.setCallback(mqttCallback);
  
     

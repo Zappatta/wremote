@@ -6,4 +6,5 @@ const uint8_t STATUS_LED = 14;
 #define MQTT_SERVER    	"your.mqtt.server"
 #define MQTT_USERNAME  	"YOUR_MQTT_USER"
 #define MQTT_PASS       "YOUR_MQTT_PASS"
+#define MQTT_PORT      14377
 #define MQTT_SUBJECT 	"/subjectsample/"
