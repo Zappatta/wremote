@@ -1,9 +1,9 @@
-version: 2
+version: 2.1
 jobs:
   build_app:
     docker:
         - image: circleci/node:8.11-stretch
-      
+
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - checkout
-      
+
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "server/package.json" }}
@@ -25,7 +25,7 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "server/package.json" }}
-        
+
       - run: cd server && npm run build
 
       - persist_to_workspace:
@@ -67,3 +67,6 @@ workflows:
       - build_docker:
           requires:
             - build_app
+    filters:
+      branches:
+        only: master
