@@ -1,5 +1,4 @@
 <template>
-    <v-app>
     <div class="main">
 
             <div class="actual-temp">
@@ -40,22 +39,20 @@
         </div>
 
     </div>
-    </v-app>
 </template>
 <script>
-    import Vue from 'vue';
-    import moment from 'moment';
-    import VApp from "../../../node_modules/vuetify/src/components/VApp/VApp.vue";
-    import VSwitch from "../../../node_modules/vuetify/src/components/VSwitch/VSwitch.vue";
-    import VSelect from "../../../node_modules/vuetify/src/components/VSelect/VSelect.vue";
-    import VIcon from "../../../node_modules/vuetify/src/components/VIcon/VIcon.vue";
-    import VBtn from "../../../node_modules/vuetify/src/components/VBtn/VBtn.vue";
-    import FanControl from '../FanControl/';
-    import ModeControl from '../ModeControl/'
+import moment from 'moment';
+import VApp from "../../../node_modules/vuetify/src/components/VApp/VApp.vue";
+import VSwitch from "../../../node_modules/vuetify/src/components/VSwitch/VSwitch.vue";
+import VSelect from "../../../node_modules/vuetify/src/components/VSelect/VSelect.vue";
+import VIcon from "../../../node_modules/vuetify/src/components/VIcon/VIcon.vue";
+import VBtn from "../../../node_modules/vuetify/src/components/VBtn/VBtn.vue";
+import FanControl from '../FanControl/';
+import ModeControl from '../ModeControl/'
 
-    import './styles.scss'
+import './styles.scss'
 
-    export default {
+export default {
         components: {
             VBtn,
             VIcon,
