@@ -1,0 +1,41 @@
+{
+  "name": "wremote-server",
+  "version": "2.0.0",
+  "description": "Server app for wremote (arudino A/C remote project). Receives HTTP requests. Manages state, and issues MQTT events.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test",
+    "dev": "npx ts-node index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zappatta/wremote.git"
+  },
+  "keywords": [
+    "gree",
+    "tadiran",
+    "arduino",
+    "esp8622",
+    "air conditioner",
+    "home automation"
+  ],
+  "author": "Yoske Shamam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Zappatta/wremote/issues"
+  },
+  "homepage": "https://github.com/Zappatta/wremote#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.21.3",
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3"
+  }
+}
