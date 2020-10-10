@@ -18,28 +18,31 @@
 
             <div class="desired-temp">
                 <div class="temp-text">
-                  <i class="flaticon-thermometer"></i> <span>{{desiredTemp}}</span>
+                  <i class="flaticon-thermometer"></i> <span>{{acState.temperature}}</span>
                 </div>
-                <v-btn class="temp-change-button" icon @click="desiredTemp++">
+                <v-btn class="temp-change-button" icon @click="acState.temperature++">
                   <v-icon large>fa-arrow-up</v-icon>
                 </v-btn>
-                <v-btn class="temp-change-button" icon @click="desiredTemp--">
+                <v-btn class="temp-change-button" icon @click="acState.temperature--">
                   <v-icon large>fa-arrow-down</v-icon>
                 </v-btn>
 
             </div>
             <hr>
-            <v-btn @click="power = !power" class="power-button" :class="{'on' : power}">
+            <v-btn @click="acState.power = !acState.power"
+                   class="power-button"
+                   :class="{'on' : acState.power}"
+            >
                 <v-icon >fa-power-off</v-icon>
             </v-btn>
 
-            <fan-control v-model="fan" @change="(newSpeed)=>{this.fan = newSpeed}"></fan-control>
+            <fan-control v-model="acState.fan" @change="(newSpeed)=>{acState.fan = newSpeed}"/>
 
-            <mode-control v-model="mode" @change="(newMode)=>{this.mode = newMode}"></mode-control>
+            <mode-control v-model="acState.mode" @change="(newMode)=>{acState.mode = newMode}"/>
 
         </div>
         <div class="send-container">
-            <v-btn icon large class="send-button red" @click="updateServerWithState()">
+            <v-btn icon large class="send-button red" @click="sendStateToMqttServer()">
                 <v-icon>fa-wifi</v-icon>
             </v-btn>
         </div>
@@ -47,99 +50,53 @@
     </div>
     </v-app>
 </template>
-<script>
-// import moment from 'moment';
+<script lang="ts">
+import Vue from 'vue';
+import {AirConditionerMode, AirConditionerState} from '@/types';
 import FanControl from '../FanControl/index.vue';
 import ModeControl from '../ModeControl/index.vue';
 
 import './styles.scss';
 
-export default {
+export default Vue.extend({
   components: {
     FanControl,
     ModeControl,
   },
   data() {
     return {
-      actualTemp: 0,
-      desiredTemp: 26,
-      power: false,
-      fan: 2,
-      mode: 1,
-      isOn: 1,
-      isOff: 0,
-      lastArduinoUpdateTime: null,
-      lastUpdateDiff: null,
-      lastUpdateDiffInWords: 'Never',
+      actualTemp: 0 as number,
+      acState: {
+        fan: 0,
+        mode: AirConditionerMode.auto,
+        temperature: 26,
+        power: false,
+      } as AirConditionerState,
+      ambientTemperatureLastUpdatedAt: new Date() as Date,
+      isConnectedToMqttServer: false as boolean,
     };
   },
   created() {
-    const updateTemp = (state) => {
-      this.actualTemp = state.actualTemp;
-      this.lastArduinoUpdateTime = state.lastArduinoUpdateTime;
-      this.lastUpdateDiff = new Date().getTime() - state.lastArduinoUpdateTime;
-      this.lastUpdateDiffInWords = 'FIXME';// moment(this.lastArduinoUpdateTime, 'x').fromNow();
-    };
-
-    const getInfoFromSever = () => {
-      fetch('/rest/state', { credentials: 'same-origin' }).then((fetchRes) => {
-        fetchRes.json().then((state) => {
-          this.power = state.power !== 0;
-          this.fan = state.fan;
-          this.mode = state.mode;
-
-          updateTemp(state);
-        });
-      });
-    };
-
-    const getTempFromServer = () => {
-      fetch('/rest/state', { credentials: 'same-origin' }).then((fetchRes) => {
-        fetchRes.json().then((state) => {
-          updateTemp(state);
-        });
-      });
-    };
-
-    getInfoFromSever();
-    setInterval(getTempFromServer, 5000);
   },
   methods: {
-    updateServerWithState() {
-      const {
-        actualTemp, desiredTemp, power, fan, mode,
-      } = this;
-
-      fetch('/rest/state', {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-
-        body: JSON.stringify({
-          actualTemp, desiredTemp, power: power ? 1 : 0, fan, mode,
-        }),
-      });
+    sendStateToMqttServer() {
+      console.log(JSON.stringify(this.acState));
     },
   },
   computed: {
     lastUpdateTime() {
-      if (!this.lastArduinoUpdateTime) {
-        return 'never';
-      }
-      return 'fixme';// moment(this.lastArduinoUpdateTime, 'x').fromNow();
+      return 'fixme';
     },
+
     isArduinoUpdating() {
-      if (new Date().getTime() - this.lastArduinoUpdateTime > 30 * 1000) {
+      if (new Date().getTime() - this.ambientTemperatureLastUpdatedAt.getTime() > 30 * 1000) {
         return false;
       }
 
       return true;
     },
   },
-};
+});
 </script>
 <style>
  #modes {
