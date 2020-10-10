@@ -2,10 +2,10 @@
     <div class="fan-control-wrapper">
         <i class="flaticon-vehicle fan-icon" ></i>
             <v-btn-toggle v-model="localSpeed" mandatory>
-                <v-btn flat class="fan-speed-button"> <i class="flaticon-magic-wand"></i> </v-btn>
-                <v-btn flat class="fan-speed-button"> 1 </v-btn>
-                <v-btn flat class="fan-speed-button"> 2 </v-btn>
-                <v-btn flat class="fan-speed-button"> 3 </v-btn>
+                <v-btn text class="fan-speed-button"> <i class="flaticon-magic-wand"></i> </v-btn>
+                <v-btn text class="fan-speed-button"> 1 </v-btn>
+                <v-btn text class="fan-speed-button"> 2 </v-btn>
+                <v-btn text class="fan-speed-button"> 3 </v-btn>
             </v-btn-toggle>
 
     </div>

@@ -2,11 +2,11 @@
     <div class="mode-control-wrapper">
         <i class="flaticon-mode-circular-button mode-icon"  ></i>
             <v-btn-toggle v-model="localMode">
-                <v-btn flat class="mode-button"> <i class="flaticon-magic-wand"></i> </v-btn>
-                <v-btn flat class="mode-button"> <i class="flaticon-snowflake"></i></v-btn>
-                <v-btn flat class="mode-button"> <i class="flaticon-drought"></i></v-btn>
-                <v-btn flat class="mode-button"> <i class="flaticon-vehicle"></i></v-btn>
-                <v-btn flat class="mode-button"> <i class="flaticon-sun"></i></v-btn>
+                <v-btn text class="mode-button"> <i class="flaticon-magic-wand"></i> </v-btn>
+                <v-btn text class="mode-button"> <i class="flaticon-snowflake"></i></v-btn>
+                <v-btn text class="mode-button"> <i class="flaticon-drought"></i></v-btn>
+                <v-btn text class="mode-button"> <i class="flaticon-vehicle"></i></v-btn>
+                <v-btn text class="mode-button"> <i class="flaticon-sun"></i></v-btn>
             </v-btn-toggle>
 
     </div>
@@ -14,11 +14,11 @@
 
 <script>
 
-    import VToolbar from "../../../node_modules/vuetify/src/components/VToolbar/VToolbar.vue";
-    import VBtn from "../../../node_modules/vuetify/src/components/VBtn/VBtn.vue";
-    import VBtnToggle from "../../../node_modules/vuetify/src/components/VBtnToggle/VBtnToggle.vue";
+import VToolbar from "../../../node_modules/vuetify/src/components/VToolbar/VToolbar.vue";
+import VBtn from "../../../node_modules/vuetify/src/components/VBtn/VBtn.vue";
+import VBtnToggle from "../../../node_modules/vuetify/src/components/VBtnToggle/VBtnToggle.vue";
 
-    export default {
+export default {
         components: {
             VBtnToggle,
             VBtn,
