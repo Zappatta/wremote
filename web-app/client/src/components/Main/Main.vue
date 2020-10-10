@@ -1,9 +1,8 @@
 <template>
     <v-app>
     <div class="main">
-
+      <Settings/>
             <div class="actual-temp">
-
                 <div class="temp-text">
                     <i class="flaticon-house-outline"></i><span>{{actualTemp}}</span>
                 </div>
@@ -55,6 +54,7 @@ import Vue from 'vue';
 import {AirConditionerMode, AirConditionerState} from '@/types';
 import FanControl from '../FanControl/index.vue';
 import ModeControl from '../ModeControl/index.vue';
+import Settings from '../Settings/Settings.vue';
 
 import './styles.scss';
 
@@ -62,6 +62,7 @@ export default Vue.extend({
   components: {
     FanControl,
     ModeControl,
+    Settings,
   },
   data() {
     return {

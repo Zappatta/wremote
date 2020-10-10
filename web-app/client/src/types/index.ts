@@ -12,3 +12,9 @@ export interface AirConditionerState {
   fan: 0 | 1 | 2 | 3,
   mode: AirConditionerMode
 }
+
+export interface MqttServerInfo {
+  user: string | undefined,
+  password: string | undefined,
+  address: string | undefined,
+}
