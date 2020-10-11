@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build:
+    working-directory: web-app/client
 
     runs-on: ubuntu-latest
 
