@@ -68,10 +68,14 @@ body {
 
         }
     }
-    .control {
+    .remoteKeypads, .remoteDisplay {
         text-align: center;
     }
-
+    .remoteKeypads {
+        >* {
+            margin: 15px 0 15px 0;
+        }
+    }
 
 
     .power-button {

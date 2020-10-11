@@ -14,7 +14,7 @@
             </div>
             <hr>
 
-        <div class="control">
+        <div class="remoteDisplay">
 
             <div class="desired-temp">
                 <div class="temp-text">
@@ -28,6 +28,8 @@
                 </v-btn>
 
             </div>
+        </div>
+      <div class="remoteKeypads">
             <hr>
             <v-btn @click="acState.power = !acState.power"
                    class="power-button"
@@ -40,11 +42,11 @@
 
             <mode-control v-model="acState.mode" @change="(newMode)=>{acState.mode = newMode}"/>
 
-        </div>
         <div class="send-container">
             <v-btn icon large class="send-button red" @click="sendStateToMqttServer()">
                 <v-icon>fa-wifi</v-icon>
             </v-btn>
+        </div>
         </div>
       {{ settings }}
     </div>
@@ -88,7 +90,7 @@ export default Vue.extend({
   methods: {
     sendStateToMqttServer() {
       console.log(JSON.stringify(this.acState));
-      mqttClient.publish(`/zappatta@gmail.com/ac/set`, `${(this.acState.power ? 1 : 0)},${this.acState.temperature},${this.acState.mode},${this.acState.fan}`);
+      mqttClient.publish('/zappatta@gmail.com/ac/set', `${(this.acState.power ? 1 : 0)},${this.acState.temperature},${this.acState.mode},${this.acState.fan}`);
     },
     settingsChanged(newSettings: Settings) {
       console.log('Settings changed', newSettings);
