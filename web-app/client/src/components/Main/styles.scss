@@ -22,6 +22,7 @@ body {
     height:100%;
     overflow: hidden;
     background: #D1D1D1;
+    padding: 10px;
 
     .main {
         margin:15px;
@@ -74,6 +75,9 @@ body {
     .remoteKeypads {
         >* {
             margin: 15px 0 15px 0;
+        }
+        .v-item-group {
+            margin-left:15px;
         }
     }
 

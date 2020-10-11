@@ -8,9 +8,9 @@
                     <i class="flaticon-house-outline"></i><span>{{actualTemp}}</span>
                 </div>
 
-                <span class="last-update-time" v-if="lastUpdateDiff > (30 * 1000)">
-                    updated "some time FIXME"
-                </span>
+<!--                <span class="last-update-time" v-if="lastUpdateDiff > (30 * 1000)">-->
+<!--                    updated "some time FIXME"-->
+<!--                </span>-->
             </div>
             <hr>
 
