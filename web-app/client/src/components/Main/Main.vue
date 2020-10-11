@@ -48,7 +48,6 @@
             </v-btn>
         </div>
         </div>
-      {{ settings }}
     </div>
     </v-app>
 </template>
