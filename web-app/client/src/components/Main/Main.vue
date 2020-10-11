@@ -43,7 +43,8 @@
             <mode-control v-model="acState.mode" @change="(newMode)=>{acState.mode = newMode}"/>
 
         <div class="send-container">
-            <v-btn icon large class="send-button red" @click="sendStateToMqttServer()">
+            <v-btn icon large class="send-button red" @click="sendStateToMqttServer()"
+                   :disabled="mqttStatus !== MqttStatusEnum.connected">
                 <v-icon>fa-wifi</v-icon>
             </v-btn>
         </div>
@@ -84,6 +85,7 @@ export default Vue.extend({
       isConnectedToMqttServer: false as boolean,
       settings: {} as Settings,
       mqttStatus: MqttStatus.disconnected as MqttStatus,
+      MqttStatusEnum: MqttStatus,
     };
   },
   methods: {
