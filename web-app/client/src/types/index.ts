@@ -18,3 +18,14 @@ export interface MqttServerInfo {
   password: string | undefined,
   address: string | undefined,
 }
+
+export interface Settings {
+  mqttServerInfo: MqttServerInfo
+}
+
+export enum MqttStatus {
+  disconnected,
+  connecting,
+  connected,
+  error,
+}

@@ -22,7 +22,7 @@
           <v-btn
             icon
             light
-            @click="showDialog = false"
+            @click="onBackButtonClicked()"
           >
             <v-icon color="grey darken-2">
               mdi-arrow-left
@@ -34,10 +34,7 @@
           </v-toolbar-title>
         </v-toolbar>
         <v-container>
-          <MqttServerInfoEditor v-model="mqttServerInfo" @input="onMqttServerInfoChanged"/>
-          <div>
-            {{ this.mqttServerInfo }}
-          </div>
+          <MqttServerInfoEditor v-model="value.mqttServerInfo" @input="onMqttServerInfoChanged"/>
         </v-container>
       </div>
     </v-dialog>
@@ -45,35 +42,42 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import {MqttServerInfo} from '@/types';
+import Vue, {PropType} from 'vue';
+import {MqttServerInfo, Settings} from '@/types';
 import MqttServerInfoEditor from './MqttServerInfoEditor.vue';
 
 function isMqttInfoInvalid(mqttServerInfo: MqttServerInfo) {
   // eslint-disable-next-line arrow-body-style
-  return ['address', 'user', 'password'].some((requiredMqttServerInfoKey) => {
-    return !Object.hasOwnProperty.call(mqttServerInfo, requiredMqttServerInfoKey)
-      || mqttServerInfo[requiredMqttServerInfoKey] === '';
+  return ['address', 'user', 'password'].some((key) => {
+    return !Object.hasOwnProperty.call(mqttServerInfo, key)
+      || (mqttServerInfo as any)[key] === '';
   });
 }
 export default Vue.extend({
-  name: 'Settings',
+  name: 'SettingsEditor',
   components: { MqttServerInfoEditor },
+  props: {
+    value: { type: Object as PropType<Settings> },
+  },
   data() {
     return {
       requiresAttention: false,
       showDialog: false,
-      mqttServerInfo: { } as MqttServerInfo,
     };
   },
   created() {
-    this.mqttServerInfo = JSON.parse(localStorage.getItem('mqttServerInfo') || '{}');
-    this.requiresAttention = isMqttInfoInvalid(this.mqttServerInfo);
+    this.value.mqttServerInfo = JSON.parse(localStorage.getItem('mqttServerInfo') || '{}');
+    this.requiresAttention = isMqttInfoInvalid(this.value.mqttServerInfo);
+    this.$emit('change', this.value);
   },
   methods: {
     onMqttServerInfoChanged(mqttServerInfo: MqttServerInfo) {
       localStorage.setItem('mqttServerInfo', JSON.stringify(mqttServerInfo));
-      this.requiresAttention = isMqttInfoInvalid(this.mqttServerInfo);
+      this.requiresAttention = isMqttInfoInvalid(this.value.mqttServerInfo);
+    },
+    onBackButtonClicked() {
+      this.showDialog = false;
+      this.$emit('change', this.value);
     },
   },
 });
