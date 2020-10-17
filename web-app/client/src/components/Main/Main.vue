@@ -91,8 +91,14 @@ export default Vue.extend({
   methods: {
     sendStateToMqttServer() {
       console.log(JSON.stringify(this.acState));
-      mqttClient.publish('/zappatta@gmail.com/ac/set', `${(this.acState.power ? 1 : 0)},${this.acState.temperature},${this.acState.mode},${this.acState.fan}`);
+      const messageBody = `${(this.acState.power ? 1 : 0)},${this.acState.temperature}\
+
+        ,${this.acState.mode},${this.acState.fan}`;
+
+      mqttClient.publish(`${this.settings.mqttServerInfo.mqttSubjectPrefix}ac/set`,
+        messageBody);
     },
+
     settingsChanged(newSettings: Settings) {
       console.log('Settings changed', newSettings);
       const { address, user, password } = newSettings.mqttServerInfo;
@@ -104,12 +110,17 @@ export default Vue.extend({
 
       mqttClient.on('connect', () => {
         this.mqttStatus = MqttStatus.connected;
-        mqttClient.subscribe('/zappatta@gmail.com/ac/ambianceTemp');
+        console.log('Connected to MQTT server');
+
+        const temperatureUpdateTopic = `${this.settings.mqttServerInfo.mqttSubjectPrefix}ac/ambianceTemp`;
+        console.log('Subscribing to topic', temperatureUpdateTopic);
+
+        mqttClient.subscribe(temperatureUpdateTopic);
       });
 
       mqttClient.on('message', (topic: string, message: string) => {
-        if (topic === '/zappatta@gmail.com/ac/ambianceTemp') {
-          console.log(message.toString());
+        console.log('got MQTT msg', topic, message.toString());
+        if (topic === `${this.settings.mqttServerInfo.mqttSubjectPrefix}ac/ambianceTemp`) {
           this.actualTemp = parseInt(message.toString(), 0);
         }
       });

@@ -42,8 +42,8 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue';
-import {MqttServerInfo, Settings} from '@/types';
+import Vue, { PropType } from 'vue';
+import { MqttServerInfo, Settings } from '@/types';
 import MqttServerInfoEditor from './MqttServerInfoEditor.vue';
 
 function isMqttInfoInvalid(mqttServerInfo: MqttServerInfo) {

@@ -20,6 +20,10 @@
                   v-model="value.password"
                   @input="onInput()"
     />
+    <v-text-field label="MQTT subject prefix (optional)" hide-details="auto"
+                  v-model="value.mqttSubjectPrefix"
+                  @input="onInput()"
+    />
   </div>
 </template>
 

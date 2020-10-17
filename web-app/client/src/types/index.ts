@@ -17,6 +17,7 @@ export interface MqttServerInfo {
   user: string | undefined,
   password: string | undefined,
   address: string | undefined,
+  mqttSubjectPrefix?: string,
 }
 
 export interface Settings {
