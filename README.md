@@ -16,7 +16,7 @@ This was built and tested on a WeMos D1 R2 Arduino compatible board. You can buy
 
 Apart from the board you will need:
 * IR Led
-* Temprature sensor (I use TMP36). Not mandatory but nice to see current temprature.
+* Temperature sensor (I use TMP36). Not mandatory but nice to see current temprature.
 
 I have plugged the LED without a resistor, since it only turns on for short bursts. I have found that with a resistor, the LED is not powerful enough from the distance I need. This may reduce the lifetime of the LED, but so far it is working properly.
 
@@ -33,14 +33,16 @@ This is how it looks:
 After building the hardware, you will need to upload the sketch that is located in the arduino directory. This directory has it's own readme with instructions.
 
 ## Web interface
-This web interface is built using NodeJs and Express. I'm using Babel to transpile the code to ES2107 for both server and client side code. It also uses Vue on the client side. I've tried my best to make it simple to get up and running, and you have NPM scripts to take care of that for you.
+I've also created web inteface for controlling the A/C. The GUI is built for mobile devices. But will work on desktop browsers as well. 
 
-Personally, I'm hosting the web interface on a hosted VM on the internet. But I can't think why this shouldn't work on your local LAN as well if you want to. Just make sure to forward the right ports in your router if you want to access it from the outside. 
-
-The GUI is built for mobile devices. But will work on desktop browsers as well.
+in V2 I've eliminated the server-side code, and have the client side web-app issue commands directly to the MQTT server. 
+While this comes with added cost of having the manually enter the MQTT server in each device, it can now be run with absolutely
+not set-up work required, and does not require owning and configuring a server of you own. It can be hosted in 
+github pages. So I believe the benefits outweighs the cost.
 
 ## how it works
-The board will use the MQTT protocol to communicate with the server. the Server is a web GUI to control the broad.
+This GUI and board both use the MQTT protocol to send and receive commands. 
+You will need to use a hosted MQTT server, either by using a hosted solution or rolling your own.
 
 ## License - MIT
 
