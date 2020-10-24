@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue';
-import {MqttStatus} from '@/types';
+import Vue, { PropType } from 'vue';
+import { MqttStatus } from '@/types';
 
 export default Vue.extend({
   name: 'MqttStatusBadge',
