@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build:
+    needs: test
     defaults:
       run:
         working-directory: web-app/client
