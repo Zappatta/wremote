@@ -28,16 +28,21 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
+import { MqttServerInfo } from '@/types';
 import ValidationRules from '../../utils/InputValidationRules';
 
 export default Vue.extend({
   name: 'MqttServerInfoEditor',
-  props: ['value'],
+  props: {
+    value: {
+      type: Object as PropType<MqttServerInfo>,
+      default() { return {}; },
+    },
+  },
   data: () => ({
     showPassword: false as boolean,
     rules: ValidationRules,
-    address: '' as string,
   }),
   methods: {
     onInput() {
