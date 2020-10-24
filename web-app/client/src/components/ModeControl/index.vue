@@ -2,11 +2,13 @@
     <div class="mode-control-wrapper">
         <i class="flaticon-mode-circular-button mode-icon"  ></i>
             <v-btn-toggle v-model="localMode">
-                <v-btn text class="mode-button"> <i class="flaticon-magic-wand"></i> </v-btn>
-                <v-btn text class="mode-button"> <i class="flaticon-snowflake"></i></v-btn>
-                <v-btn text class="mode-button"> <i class="flaticon-drought"></i></v-btn>
-                <v-btn text class="mode-button"> <i class="flaticon-vehicle"></i></v-btn>
-                <v-btn text class="mode-button"> <i class="flaticon-sun"></i></v-btn>
+                <v-btn text class="mode-button button-1">
+                  <i class="flaticon-magic-wand"></i>
+                </v-btn>
+                <v-btn text class="mode-button button-2"><i class="flaticon-snowflake"></i></v-btn>
+                <v-btn text class="mode-button button-3"><i class="flaticon-drought"></i></v-btn>
+                <v-btn text class="mode-button button-4"><i class="flaticon-vehicle"></i></v-btn>
+                <v-btn text class="mode-button button-5"><i class="flaticon-sun"></i></v-btn>
             </v-btn-toggle>
 
     </div>
