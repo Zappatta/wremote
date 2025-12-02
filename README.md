@@ -1,5 +1,8 @@
 # Internet connected A/C remote using Esp8266 (arduino compatible) board
 
+## Discontinued
+This repo has been archived, as the technology is somewhat outdated. If you wish to build a DIY setup for your home A/C I recommend you use ESPHome with this: https://esphome.io/components/climate/climate_ir/
+
 ![Build](https://github.com/zappatta/wremote/workflows/Build/badge.svg)
 ![Test](https://github.com/zappatta/wremote/workflows/Test/badge.svg)
 
